@@ -33,6 +33,18 @@
                 console.log(result);
             });
         });
+        
+        $$('.J_TSaleProp a').each(function(idx,obj){
+            var testxx = $$(obj).attr('style');
+            if(testxx !== undefined){
+                var imgurl = testxx.replace(/background:url\(/,'https:').replace(/_\d+x\d+.*/,'');
+                console.log(imgurl);
+                $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
+                    console.log(result);
+                });
+            }
+        });
+        
     };
 
     $$('body').append('<div id="outdiv" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: absolute;top: 0;right: 0;width: 260px;height: 70px;overflow-y: scroll;z-index:200000001;"></div>');
