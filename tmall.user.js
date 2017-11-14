@@ -39,6 +39,7 @@
             if(testxx !== undefined){
                 var imgurl = testxx.replace(/background:url\(/,'https:').replace(/_\d+x\d+.*/,'');
                 console.log(imgurl);
+                $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
                 $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
                     console.log(result);
                 });
