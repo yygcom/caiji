@@ -4,3 +4,5 @@ ffmpeg -i tt.aac  -filter volume='if(lt(t,10),1,max(1-(t-10)/8,0))':eval=frame  
 ffmpeg -i oo.mp4 -i t1x.aac -i LOGO.png -filter_complex "overlay=main_w-overlay_w-10:10" -b:v 1M -y nx3.mp4
 
 ffmpeg -i ax1.aac -i JP5113011.mp4 -i LOGO.png -filter_complex "overlay=main_w-overlay_w-20:20" -b:v 800K -y outx1.mp4
+
+<video controls="controls" autoplay="true" src="/flv/13011.mp4" type="video/mp4"></video>
