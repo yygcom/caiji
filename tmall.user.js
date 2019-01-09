@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         tmall抓
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  try to take over the world!
 // @author       You
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
@@ -48,13 +48,19 @@
         
     };
 
-    $$('body').append('<div id="outdiv" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: absolute;top: 0;right: 0;width: 260px;height: 70px;overflow-y: scroll;z-index:200000001;"></div>');
+    $$('body').append('<div id="outdiv" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: absolute;top: 0;right: 0;width: 300px;height: 70px;overflow-y: scroll;z-index:200000001;"></div>');
 
-    $$('#outdiv').append('<div style="height:30px;"> <span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="dlhand">下载此产品的图片</span> <a style="border:solid 1px #ccc;background-color:#999;color:#fff;padding:10px;;" id="showhand" href="http://'+serv+'/yaaw" target="_blank">查看下载进程</a></div>');
+    $$('#outdiv').append('<div style="height:30px;"><span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="getvedio">视频 </span> <span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="dlhand">下载此产品的图片</span> <a style="border:solid 1px #ccc;background-color:#999;color:#fff;padding:10px;;" id="showhand" href="http://'+serv+'/yaaw" target="_blank">查看下载进程</a></div>');
     $$('#outdiv').append('<div style="height:20px;">图片位置 <pre>\\\\172.20.3.194\\wwwroot\\caiji\\images\\ </pre></div>');
 
     $$('#dlhand').click(function(){
         download();
+    });
+    
+    $$('#getvedio').click(function(){
+        //console.log($$('video.lib-video')[0].currentSrc);
+        var newWeb=window.open('_blank');
+        newWeb.location = $$('video.lib-video')[0].currentSrc;
     });
 
     // Your code here...
