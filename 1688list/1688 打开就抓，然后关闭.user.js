@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         1688 打开就抓，然后关闭
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  try to take over the world!
 // @author       You
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
@@ -27,16 +27,18 @@ var $ = XJQ;
         //var pid = $$('input[name="item_id"]').val();
         var pid = XJQ('meta[name="b2c_auction"]').attr('content');
         XJQ('.tab-content-container li').each(function(idx,obj){
-            var imgurldata = JSON.parse(XJQ(obj).attr("data-imgs"));
-            var imgurl = imgurldata.original;
-            console.log(imgurl);
+            if(typeof(XJQ(obj).attr("data-imgs"))!="undefined"){
+                var imgurldata = JSON.parse(XJQ(obj).attr("data-imgs"));
+                var imgurl = imgurldata.original;
+                console.log(imgurl);
 
-            XJQ('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
+                XJQ('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
 
-            XJQ.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
-                //no
-                console.log(result);
-            });
+                XJQ.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
+                    //no
+                    console.log(result);
+                });
+            }
         });
 
         window.close();
