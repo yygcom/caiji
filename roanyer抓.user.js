@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         roanyer抓
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.roanyer.com/index.php?route=product/product*
@@ -14,6 +14,20 @@
     var postdomain = 'roanyer.com';
     var serv = '172.20.3.194:3000';
     var servs = '172.20.3.194:3001';
+
+    var testurl = function(str){
+
+        //判断URL地址的正则表达式为:http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?
+        //下面的代码中应用了转义字符"\"输出一个字符"/"
+        var Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+        var objExp=new RegExp(Expression);
+        if(objExp.test(str)==true){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
     var download = function(){
         $('#outdiv').css({'width':'500px','height':'500px'});
@@ -38,7 +52,13 @@
         var pidx = pid+'/ext/';
         $('#tab-description img').each(function(idx,obj){
             var imgurl = '';
-            imgurl=domain+$(obj).attr('src');
+            var tmurl = $(obj).attr('src');
+            if(testurl(tmurl)){
+                imgurl = tmurl;
+            }else{
+                imgurl=domain+$(obj).attr('src');
+            }
+            
 
             console.log(imgurl);
 
