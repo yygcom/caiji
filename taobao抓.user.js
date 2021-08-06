@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         taobao抓
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
+// @updateURL 
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
 // @match        http://item.taobao.com/item.htm*
 // @match        https://item.taobao.com/item.htm*
