@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         1688抓
 // @namespace    http://tampermonkey.net/
-// @version      0.2.2
+// @version      0.2.3
 // @description  try to take over the world!
 // @author       You
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
@@ -46,8 +46,22 @@
     $$('#outdiv').append('<div style="height:20px;">图片位置 <pre>\\\\172.20.3.194\\wwwroot\\caiji\\images\\ </pre></div>');
 
     $$('#dlhand').click(function(){
-        download();
+        //download();
+        ckst();
     });
+
+    var ckst = function(){
+        //$$.get('https://172.20.3.194:3001/test?t='+Math.rand(),function(data){
+
+        //});
+        $$.get('https://172.20.3.194:3001/test?t='+Math.random(), function(data){
+            //console.log('ok');
+            download();
+        }).fail(function() {
+            window.open('https://172.20.3.194:3001');
+            //alert('woops'); // or whatever
+        });
+    }
 
     // Your code here...
 })();
