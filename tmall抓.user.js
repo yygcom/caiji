@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         tmall抓
 // @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @version      0.2.4
 // @description  try to take over the world!
 // @author       You
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
@@ -23,7 +23,7 @@
         $$('#outdiv').css({'width':'500px','height':'500px'});
         var pid = $$('#LineZing').attr('itemid');
         $$('#J_UlThumb img').each(function(idx,obj){
-            var imgurl = $$(obj).attr("src").replace(/\/\//,'http://').replace(/_\d+x\d+.*/,'');
+            var imgurl = $$(obj).attr("src").replace(/\/\//,'http://').replace(/_\d+x\d+.*/,'').replace('https:http:','http:');
             console.log(imgurl);
 
             $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
