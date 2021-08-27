@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         roanyer抓
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.roanyer.com/index.php?route=product/product*
+// @match        https://www.roanyer.com/*?product_id=*
 // @grant        none
 // ==/UserScript==
 
