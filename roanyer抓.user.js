@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         roanyer抓
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.roanyer.com/index.php?route=product/product*
@@ -97,7 +97,7 @@
     //window.close();
     
     var ckst = function(){
-        $$.get('https://172.20.3.194:3001/test?t='+Math.random(), function(data){
+        $.get('https://172.20.3.194:3001/test?t='+Math.random(), function(data){
             //console.log('ok');
             download();
         }).fail(function() {
