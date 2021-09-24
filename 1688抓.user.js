@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         1688抓
 // @namespace    http://tampermonkey.net/
-// @version      0.2.5
+// @version      0.2.8
 // @description  try to take over the world!
 // @author       You
+// @original-script https://github.com/yygcom/caiji/raw/master/1688%E6%8A%93.user.js
+// @updateURL    https://github.com/yygcom/caiji/raw/master/1688%E6%8A%93.user.js
 // @require      https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
 // @match        http://detail.1688.com/offer/*.html*
 // @match        https://detail.1688.com/offer/*.html*
