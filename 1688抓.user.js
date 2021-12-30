@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         1688抓
 // @namespace    http://tampermonkey.net/
-// @version      0.2.8
+// @version      0.3.20211230
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/1688%E6%8A%93.user.js
@@ -25,7 +25,9 @@
     var download = function(){
         $$('#outdiv').css({'width':'500px','height':'500px'});
         //var pid = $$('input[name="item_id"]').val();
-        var pid = $$('meta[name="b2c_auction"]').attr('content');
+        //var pid = $$('meta[name="b2c_auction"]').attr('content');
+        var pid= document.location.href.match(/(\d*)\.html/)[1];
+        /*
         $$('.tab-content-container li').each(function(idx,obj){
             if(typeof($$(obj).attr("data-imgs"))!="undefined"){
                 var imgurldata = JSON.parse($$(obj).attr("data-imgs"));
@@ -40,6 +42,19 @@
                 });
             }
         });
+        */
+        $$('.detail-gallery-img').each(function(idx,obj){
+//console.log(obj);
+            var imgurl = $$(obj).attr('src');
+            console.log(imgurl);
+
+            $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
+
+            $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
+                //no
+                console.log(result);
+            });
+        });
 
     };
 
@@ -47,8 +62,11 @@
         $$('#outdesc').remove();
         $$('body').append('<div id="outdesc" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: fixed;top: 0;left: 0;width: 660px;height: 470px;overflow-y: scroll;z-index:200000002;"></div>');
 
-        var pid = $$('meta[name="b2c_auction"]').attr('content');
-        var dimgs = $$('#desc-lazyload-container').html().match(/<img.*?>/g);
+        //var pid = $$('meta[name="b2c_auction"]').attr('content');
+        var pid= document.location.href.match(/(\d*)\.html/)[1];
+        //var dimgs = $$('#desc-lazyload-container').html().match(/<img.*?>/g);
+
+        var dimgs = $$('#detailContentContainer').html().match(/<img.*?>/g);
 
         if(dimgs == null){
             var hhh = $$(document).height()-$$(window).height();
@@ -77,9 +95,9 @@
         }
     };
 
-    $$('body').append('<div id="outdiv" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: fixed;top: 0;right: 0;width: 260px;height: 70px;overflow-y: scroll;z-index:200000001;"></div>');
+    $$('body').append('<div id="outdiv" style="border:solid 1px #ccc;background:#eaeaea;padding: 10px;position: fixed;top: 0;right: 0;width: 360px;height: 70px;overflow-y: scroll;z-index:200000001;"></div>');
 
-    $$('#outdiv').append('<div style="height:30px;"> <span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="dlhand">下载此产品的图片</span> <a style="border:solid 1px #ccc;background-color:#999;color:#fff;padding:10px;;" id="showhand" href="http://'+serv+'/yaaw" target="_blank">查看下载进程</a></div>');
+    $$('#outdiv').append('<div style="height:30px;"> <input type="button" id="tool" value="tool" style="display:none;"> <span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="getvedio">视频</span> <span style="cursor:pointer; border:solid 1px #ccc;background-color:#bababa;color:red;padding:10px;margin-right:10px;" id="dlhand">下载此产品的图片</span> <a style="border:solid 1px #ccc;background-color:#999;color:#fff;padding:10px;;" id="showhand" href="http://'+serv+'/yaaw" target="_blank">查看下载进程</a></div>');
     $$('#outdiv').append('<div style="height:20px;">图片位置 <pre>\\\\172.20.3.194\\wwwroot\\caiji\\images\\ </pre></div>');
 
     $$('#dlhand').click(function(){
@@ -110,5 +128,32 @@
         });
     }
 
+    var initx = function(sw){
+        console.log('fff');
+        var autodownload = document.location.href.match(/(autodvx)=1/);
+        console.log(autodownload);
+        var pid = document.location.href.match(/(\d*?)\.htm/)[1];
+        if(autodownload != null || sw == 1){
+            history.pushState( null, null, 'https://detail.1688.com/offer/'+pid+'.html');
+
+            var imgurl = $$('video').attr('src');
+
+            $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
+                console.log(result);
+                $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">' +imgurl+'已经加入下载进程，请注意查看<div>');
+
+                console.log(autodownload);
+                if(autodownload != null){
+                    window.self.close();
+                }
+            });
+        }
+    }
+
+    initx(0);
+
+    $$('#getvedio').click(function(){
+        initx(1);
+    });
     // Your code here...
 })();
