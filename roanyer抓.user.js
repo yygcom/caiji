@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         roanyer抓
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.roanyer.com/index.php?route=product/product*
+// @match        https://www.roanyer.com/index.php?route=/product/product*
 // @match        https://www.roanyer.com/*?product_id=*
 // @grant        none
 // ==/UserScript==
@@ -34,7 +35,7 @@
         $('#outdiv').css({'width':'500px','height':'500px'});
         //var pid = window.location.href.replace(/.*product\//i,'').replace(/\?.*/i,'');
         var pid = $('input[name="product_id"]').val();
-        $('#ban_num1 img').each(function(idx,obj){
+        $('#ban_pic1 ul img').each(function(idx,obj){
             var imgurl = '';
             imgurl=$(obj).attr('src');
 
