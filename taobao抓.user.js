@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         taobao抓
 // @namespace    http://tampermonkey.net/
-// @version      0.3.20211117
+// @version      0.4.20221027
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/taobao%E6%8A%93.user.js
@@ -28,7 +28,7 @@
             var imgurl = $$(obj).attr("src").replace(/\/\//,'https://').replace(/_\d+x\d+.*/,'');
             console.log(imgurl);
 
-            $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
+            $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程【一组】，请注意查看<div>');
 
             $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
                 //no
@@ -36,16 +36,32 @@
             });
         });
 
+        var pidx = pid+'/ext/';
         $$('.J_TSaleProp a').each(function(idx,obj){
             var testxx = $$(obj).attr('style');
             if(testxx !== undefined){
                 var imgurl = testxx.replace(/background:url\(/,'https:').replace(/_\d+x\d+.*/,'');
                 console.log(imgurl);
-                $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
-                $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pid},function(result){
+                $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程【二组】，请注意查看<div>');
+                $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pidx},function(result){
                     console.log(result);
                 });
             }
+        });
+
+        pidx = pid+'/desc/';
+        $$('#J_DivItemDesc img').each(function(idx,obj){
+            //console.log(obj);
+            var imgurl = $$(obj).attr('src');
+            var lzimgurl = $$(obj).data('ks-lazyload');
+            //console.log(imgurl);
+            //console.log(lzimgurl);
+            imgurl = lzimgurl == undefined ? imgurl : lzimgurl;
+
+            $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已2经加入下载进程【描述】，请注意查看<div>');
+            $$.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pidx},function(result){
+                console.log(result);
+            });
         });
 
     };
