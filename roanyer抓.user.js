@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         roanyer抓
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7.20221027
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.roanyer.com/index.php?route=product/product*
@@ -55,19 +55,27 @@
         $('#tab-description img').each(function(idx,obj){
             var imgurl = '';
             var tmurl = $(obj).attr('src');
+
+            if(tmurl == undefined){
+                tmurl = $(obj).attr('original');
+            }
+
             if(testurl(tmurl)){
                 imgurl = tmurl;
             }else{
-                imgurl=domain+$(obj).attr('src');
+                imgurl=domain+tmurl;
             }
             
 
             console.log(imgurl);
 
+            var imgurlx = encodeURI(imgurl);
+            console.log(imgurlx);
+
 
             $('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' +imgurl+'"/>已经加入下载进程，请注意查看<div>');
 
-            $.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurl,pid:pidx},function(result){
+            $.post("https://"+servs+"/getimg",{domain:postdomain,imgurl:imgurlx,pid:pidx},function(result){
                 //no
                 console.log(result);
             });
