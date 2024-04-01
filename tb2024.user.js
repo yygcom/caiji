@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         taobao2024抓
 // @namespace    http://tampermonkey.net/
-// @version      0.4.2024.0401
+// @version      0.4.2024.0401a
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/taobao%E6%8A%93.user.js
@@ -23,7 +23,7 @@
 
     var download = function(){
         $$('#outdiv').css({'width':'500px','height':'500px'});
-        var pid = $$('input[name="item_id"]').val();
+        var pid = $$('#aliww-click-trigger').data("item");
 
         
         //$$('#J_UlThumb img').each(function(idx,obj){
