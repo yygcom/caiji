@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         taobao2024抓
 // @namespace    http://tampermonkey.net/
-// @version      0.4.2024.0401a
+// @version      0.4.2024.0401b
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/tb2024.user.js
@@ -72,7 +72,7 @@
         //    }
         //});
 
-        pidx = pid+'/desc/';
+        var pidx = pid+'/desc/';
         //$$('#J_DivItemDesc img').each(function(idx,obj){
             //console.log(obj);
         //    var imgurl = $$(obj).attr('src');
