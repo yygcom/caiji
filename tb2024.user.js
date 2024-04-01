@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         taobao抓
+// @name         taobao2024抓
 // @namespace    http://tampermonkey.net/
-// @version      0.4.20221027
+// @version      0.4.2024.0401
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/taobao%E6%8A%93.user.js
