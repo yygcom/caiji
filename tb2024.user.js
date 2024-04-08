@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         taobao2024抓
 // @namespace    http://tampermonkey.net/
-// @version      0.4.2024.0401b
+// @version      0.4.2024.0401c
 // @description  try to take over the world!
 // @author       You
 // @original-script https://github.com/yygcom/caiji/raw/master/tb2024.user.js
@@ -65,7 +65,7 @@
             });
         }
 
-        //var pidx = pid+'/ext/';
+        var pidx = pid+'/ext/';
         //$$('.J_TSaleProp a').each(function(idx,obj){
         //    var testxx = $$(obj).attr('style');
         //    if(testxx !== undefined){
@@ -78,7 +78,33 @@
         //    }
         //});
 
-        var pidx = pid+'/desc/';
+        // 定义 XPath 查询语句
+        var xpathext = '//*[@id="root"]/div/div[2]/div[2]/div[1]/div/div[2]/div[5]/div/div/div[1]/div[1]/div';
+
+        // 执行 XPath 查询
+        var resultext = document.evaluate(xpathext, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+        // 遍历查询结果
+        for (var exti = 0; exti < resultext.snapshotLength; exti++) {
+            var nodeext = resultext.snapshotItem(exti);
+            // 查找当前节点下的所有 img 元素
+            var imgsext = nodeext.querySelectorAll("img");
+            // 遍历 img 元素并输出它们的 src 属性值
+            for (var extj = 0; extj < imgsext.length; extj++) {
+                console.log(imgsext[extj].src.replace(/_\d+x\d+.*/, ''));
+                var imgurl = imgsext[extj].src.replace(/_\d+x\d+.*/, '');
+                $$('#outdiv').append('<div style="border-bottom: solid 1px #ccc; margin-bottom:5px;">图片<img width="35" height="45" src="' + imgurl + '"/>已经加入下载进程【二组】，请注意查看<div>');
+                $$.post("https://" + servs + "/getimg", { domain: postdomain, imgurl: imgurl, pid: pidx }, function (result) {
+                    console.log(result);
+                });
+            }
+        }
+
+
+
+
+
+        pidx = pid+'/desc/';
         //$$('#J_DivItemDesc img').each(function(idx,obj){
             //console.log(obj);
         //    var imgurl = $$(obj).attr('src');
